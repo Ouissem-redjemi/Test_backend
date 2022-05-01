@@ -26,7 +26,7 @@ public class UserController {
         return userServ.getUsers();
     }
 
-    @PutMapping("/users/{id}")
+    @PutMapping("/user/{id}")
     public User updateUser(@PathVariable("id") int id, @RequestBody User user){
         User currentUser = userServ.getUserById(id);
         if (currentUser != null){
@@ -43,7 +43,7 @@ public class UserController {
         return currentUser;
     }
 
-    @DeleteMapping("/users/{id}")
+    @DeleteMapping("/user/{id}")
     public void deleteUser(@PathVariable("id") final int id){
         userServ.deleteUser(id);
     }
