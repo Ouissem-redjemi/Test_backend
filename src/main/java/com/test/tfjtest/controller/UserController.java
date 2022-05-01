@@ -15,7 +15,7 @@ public class UserController {
     @Autowired
     private UserService userServ;
 
-    @PostMapping("/add")
+    @PostMapping("/user/add")
     public String add(@RequestBody User user){
         userServ.saveUser(user);
         return "Nouvelle personne ajoutée";
@@ -44,7 +44,7 @@ public class UserController {
     }
 
     @DeleteMapping("/user/{id}")
-    public void deleteUser(@PathVariable("id") final int id){
+    public void deleteUser(@PathVariable("id")  int id){
         userServ.deleteUser(id);
     }
 }
