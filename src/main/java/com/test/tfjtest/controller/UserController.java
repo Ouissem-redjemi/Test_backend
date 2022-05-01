@@ -21,12 +21,12 @@ public class UserController {
         return "Nouvelle personne ajoutée";
     }
 
-    @GetMapping("/getAll")
+    @GetMapping("/users")
     public List<User> getUsers(){
         return userServ.getUsers();
     }
 
-    @PutMapping("/user/{id}")
+    @PutMapping("/users/{id}")
     public User updateUser(@PathVariable("id") int id, @RequestBody User user){
         User currentUser = userServ.getUserById(id);
         if (currentUser != null){
@@ -43,7 +43,7 @@ public class UserController {
         return currentUser;
     }
 
-    @DeleteMapping("/user/{id}")
+    @DeleteMapping("/users/{id}")
     public void deleteUser(@PathVariable("id") final int id){
         userServ.deleteUser(id);
     }
