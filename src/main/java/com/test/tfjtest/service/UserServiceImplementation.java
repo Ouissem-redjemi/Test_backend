@@ -31,10 +31,10 @@ public class UserServiceImplementation implements UserService{
     }
 
 
-
     @Override
     public User getUserById(int id) {
         Optional<User> user = userRep.findById(id);
         return user.orElse(null);
+
     }
 }

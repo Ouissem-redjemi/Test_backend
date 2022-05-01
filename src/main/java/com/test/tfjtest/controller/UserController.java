@@ -3,13 +3,15 @@ package com.test.tfjtest.controller;
 import com.test.tfjtest.model.User;
 import com.test.tfjtest.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
 @RequestMapping("/user")
-@CrossOrigin
+@CrossOrigin(origins = "http://localhost:3000")
 public class UserController {
 
     @Autowired
@@ -26,25 +28,20 @@ public class UserController {
         return userServ.getUsers();
     }
 
-    @PutMapping("/user/{id}")
-    public User updateUser(@PathVariable("id") int id, @RequestBody User user){
-        User currentUser = userServ.getUserById(id);
-        if (currentUser != null){
-            String firstname = user.getFirst_name();
-            String lastname = user.getLastname();
-            if (firstname != null) {
-                currentUser.setFirst_name(firstname);
-            }
-            if (lastname != null) {
-                currentUser.setLastname(lastname);
-            }
-
-        }
-        return currentUser;
+    @PutMapping("/user")
+    public ResponseEntity<User> updateUser(@RequestBody User newUser){
+        User updatedUser = userServ.saveUser(newUser);
+        return ResponseEntity.ok(updatedUser);
     }
 
     @DeleteMapping("/user/{id}")
-    public void deleteUser(@PathVariable("id")  int id){
+    public ResponseEntity<HttpStatus> deleteUser(@PathVariable("id")  int id){
         userServ.deleteUser(id);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
+    @GetMapping("/user/{id}")
+    public User getUserById(@PathVariable("id") int id){
+        return userServ.getUserById(id);
     }
 }
